@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyuqoqpwrxb6c"]
+
+[ext_resource type="Script" uid="uid://c40ljojdqd501" path="res://scenes/UI_Scenes/game_hud.gd" id="1_0vkfx"]
+[ext_resource type="Texture2D" uid="uid://c0oatujr7og2j" path="res://artAssets/Avatars/Avatars_02.png" id="1_nl2pv"]
+
+[node name="Game_HUD" type="Control"]
+z_index = 4
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0vkfx")
+
+[node name="lancer_Spawn_Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 553.0
+offset_right = 163.33334
+offset_bottom = 626.3333
+scale = Vector2(1.2, 1.2)
+
+[node name="TextureRect" type="TextureRect" parent="lancer_Spawn_Button"]
+layout_mode = 0
+offset_right = 77.0
+offset_bottom = 77.0
+texture = ExtResource("1_nl2pv")
+expand_mode = 3
+
+[connection signal="pressed" from="lancer_Spawn_Button" to="." method="_on_lancer_spawn_button_pressed"]

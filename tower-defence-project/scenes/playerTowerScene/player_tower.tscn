@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://e1s54wo7dtj6"]
+[gd_scene load_steps=5 format=3 uid="uid://e1s54wo7dtj6"]
 
 [ext_resource type="Script" uid="uid://b1xyvmh4ipj0y" path="res://scenes/playerTowerScene/player_tower.gd" id="1_5d0n8"]
 [ext_resource type="Texture2D" uid="uid://c5q3xx61ya6nv" path="res://artAssets/character_map_assets/playerTowerSprites/House1.png" id="1_su2ob"]
 [ext_resource type="PackedScene" uid="uid://cnb1ssvydptsb" path="res://scenes/PlayerUnits/lancer/player_lancer_unit.tscn" id="2_52n58"]
 
+[sub_resource type="PackedScene" id="PackedScene_52n58"]
+
 [node name="playerTower" type="Node2D"]
 script = ExtResource("1_5d0n8")
 lancerUnit = ExtResource("2_52n58")
+pawnUnit = SubResource("PackedScene_52n58")
 
 [node name="playerTowerlevel1Sprite" type="Sprite2D" parent="."]
 z_index = 3

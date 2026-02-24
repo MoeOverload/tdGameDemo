@@ -232,6 +232,7 @@ animations = [{
 }]
 
 [node name="playerLancerUnit" type="Node2D"]
+z_index = 4
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_vv3bq")
@@ -240,7 +241,6 @@ script = ExtResource("1_vv3bq")
 shape = SubResource("CapsuleShape2D_qw5bc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-z_index = 4
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_pmi0v")
 animation = &"idle"

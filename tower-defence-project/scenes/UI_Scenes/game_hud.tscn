@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyuqoqpwrxb6c"]
+[gd_scene load_steps=10 format=3 uid="uid://cyuqoqpwrxb6c"]
 
 [ext_resource type="Script" uid="uid://c40ljojdqd501" path="res://scenes/UI_Scenes/game_hud.gd" id="1_0vkfx"]
 [ext_resource type="Texture2D" uid="uid://c0oatujr7og2j" path="res://artAssets/Avatars/Avatars_02.png" id="1_nl2pv"]
+[ext_resource type="Texture2D" uid="uid://b5agvsn8aedi3" path="res://artAssets/Avatars/Avatars_05.png" id="3_2y01d"]
+[ext_resource type="Texture2D" uid="uid://q7v3rwiuuuhk" path="res://artAssets/buttons/SmallBlueSquareButton_Regular.png" id="3_6f4ri"]
+[ext_resource type="Texture2D" uid="uid://pi6k8gjylkdr" path="res://artAssets/buttons/SmallBlueSquareButton_Pressed.png" id="4_a3v2j"]
+[ext_resource type="Texture2D" uid="uid://bdcabv7pihe38" path="res://artAssets/Avatars/Icon_04.png" id="4_i6ru7"]
+[ext_resource type="Texture2D" uid="uid://dmes4aposcdnp" path="res://artAssets/Avatars/Avatars_04.png" id="7_a3v2j"]
+[ext_resource type="Texture2D" uid="uid://dqrbo6qa0ipmk" path="res://artAssets/Avatars/Avatars_03.png" id="8_lxgvp"]
+[ext_resource type="Texture2D" uid="uid://cdmw446a4m3ao" path="res://artAssets/Avatars/Avatars_01.png" id="9_84lmk"]
 
 [node name="Game_HUD" type="Control"]
 z_index = 4
@@ -9,23 +16,137 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0vkfx")
 
-[node name="lancer_Spawn_Button" type="Button" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 553.0
-offset_right = 163.33334
-offset_bottom = 626.3333
-scale = Vector2(1.2, 1.2)
+offset_left = 22.0
+offset_top = 548.0
+offset_right = 157.0
+offset_bottom = 617.0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HSplitContainer"]
+layout_mode = 2
+texture = ExtResource("4_i6ru7")
+expand_mode = 3
+
+[node name="res_counter" type="Label" parent="PanelContainer/HSplitContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="res_count_timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="pawn_unit_button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 437.0
+offset_top = 492.0
+offset_right = 603.0
+offset_bottom = 647.0
+texture_normal = ExtResource("3_6f4ri")
+texture_pressed = ExtResource("4_a3v2j")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="pawn_unit_button"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 29.0
+offset_right = 144.0
+offset_bottom = 123.0
+texture = ExtResource("3_2y01d")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="lancer_Spawn_Button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 491.0
+offset_right = 746.0
+offset_bottom = 648.0
+texture_normal = ExtResource("3_6f4ri")
+texture_pressed = ExtResource("4_a3v2j")
+stretch_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="lancer_Spawn_Button"]
 layout_mode = 0
-offset_right = 77.0
-offset_bottom = 77.0
+offset_left = 23.0
+offset_top = 28.0
+offset_right = 150.0
+offset_bottom = 125.0
 texture = ExtResource("1_nl2pv")
 expand_mode = 3
+stretch_mode = 5
 
+[node name="mage_spawn_button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 490.0
+offset_right = 888.0
+offset_bottom = 647.0
+texture_normal = ExtResource("3_6f4ri")
+texture_pressed = ExtResource("4_a3v2j")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="mage_spawn_button"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 30.0
+offset_right = 138.0
+offset_bottom = 124.0
+texture = ExtResource("7_a3v2j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="archer_spawn_button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 855.0
+offset_top = 493.0
+offset_right = 1024.0
+offset_bottom = 647.0
+texture_normal = ExtResource("3_6f4ri")
+texture_pressed = ExtResource("4_a3v2j")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="archer_spawn_button"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 30.0
+offset_right = 139.0
+offset_bottom = 122.0
+texture = ExtResource("8_lxgvp")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 988.0
+offset_top = 493.0
+offset_right = 1155.0
+offset_bottom = 643.0
+texture_normal = ExtResource("3_6f4ri")
+texture_pressed = ExtResource("4_a3v2j")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="TextureButton"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 28.0
+offset_right = 131.0
+offset_bottom = 118.0
+texture = ExtResource("9_84lmk")
+expand_mode = 3
+stretch_mode = 5
+
+[connection signal="timeout" from="res_count_timer" to="." method="_on_res_count_timer_timeout"]
+[connection signal="pressed" from="pawn_unit_button" to="." method="_on_pawn_unit_button_pressed"]
 [connection signal="pressed" from="lancer_Spawn_Button" to="." method="_on_lancer_spawn_button_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://dd3sfys4uvrii"]
+[gd_scene load_steps=13 format=4 uid="uid://dd3sfys4uvrii"]
 
 [ext_resource type="Script" uid="uid://debwg5xyedkca" path="res://levels/main_game.gd" id="1_4wl7b"]
 [ext_resource type="Texture2D" uid="uid://dwbnb8hjoj3jj" path="res://artAssets/character_map_assets/Water Background color.png" id="1_qgle8"]
 [ext_resource type="Texture2D" uid="uid://y3wh51xb0578" path="res://artAssets/character_map_assets/Tilemap_color1.png" id="2_nxahq"]
 [ext_resource type="PackedScene" uid="uid://e1s54wo7dtj6" path="res://scenes/playerTowerScene/player_tower.tscn" id="3_nxahq"]
 [ext_resource type="PackedScene" uid="uid://cyuqoqpwrxb6c" path="res://scenes/UI_Scenes/game_hud.tscn" id="5_4wl7b"]
+[ext_resource type="PackedScene" uid="uid://ti2ay5fu51ux" path="res://scenes/PlayerUnits/pawnUnits/player_pawn_unit.tscn" id="5_m04wh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tfbuk"]
 texture = ExtResource("1_qgle8")
@@ -724,6 +725,30 @@ texture_region_size = Vector2i(32, 32)
 33:23/0 = 0
 34:23/0 = 0
 35:23/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+17:1/0 = 0
+16:1/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+17:3/0 = 0
+16:3/0 = 0
+16:4/0 = 0
+17:4/0 = 0
+17:5/0 = 0
+16:5/0 = 0
+16:6/0 = 0
+16:7/0 = 0
+16:8/0 = 0
+16:9/0 = 0
+16:10/0 = 0
+17:10/0 = 0
+17:11/0 = 0
+16:11/0 = 0
+17:9/0 = 0
+17:8/0 = 0
+17:7/0 = 0
+17:6/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_hu4x8"]
 tile_size = Vector2i(32, 32)
@@ -930,5 +955,6 @@ tile_set = SubResource("TileSet_moue2")
 
 [node name="playerTower" parent="." instance=ExtResource("3_nxahq")]
 position = Vector2(67, 343)
+pawnUnit = ExtResource("5_m04wh")
 
 [node name="Game_HUD" parent="." instance=ExtResource("5_4wl7b")]

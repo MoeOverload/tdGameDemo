@@ -1,13 +1,10 @@
 extends CharacterBody2D
 var move_speed = 30
 var direction = 1.0
-var can_attack = true
-@onready var atck_cooldown = $attack_cooldown
 enum state{
 	IDLE,
 	RUN,
-	ATTACK,
-	DEFEND,
+	SHOOT,
 }
 @onready var current_state = state.RUN
 @onready var anim = $AnimatedSprite2D
@@ -23,8 +20,8 @@ func _physics_process(delta: float)-> void:
 			handle_idle(delta)
 		state.RUN:
 			handle_run(delta)
-		state.ATTACK:
-			handle_attack(delta)
+		state.SHOOT:
+			handle_shoot(delta)
 		
 	move_and_slide()
 		
@@ -42,21 +39,5 @@ func handle_run(_delta):
 		anim.flip_h = true
 	velocity.x = direction * move_speed
 	
-func handle_attack(delta):
-	if !can_attack:
-		return
-	velocity = Vector2.ZERO
-	anim.play("attack")
-	can_attack = false
-	atck_cooldown.start()
-	
-	
-
-
-func _on_enemy_detection_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemyTower"):
-		current_state = state.ATTACK
-
-
-func _on_attack_cooldown_timeout() -> void:
-	can_attack = true
+func handle_shoot(delta):
+	pass

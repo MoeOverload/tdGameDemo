@@ -1,18 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://e1s54wo7dtj6"]
+[gd_scene load_steps=8 format=3 uid="uid://e1s54wo7dtj6"]
 
 [ext_resource type="Script" uid="uid://b1xyvmh4ipj0y" path="res://scenes/playerTowerScene/player_tower.gd" id="1_5d0n8"]
 [ext_resource type="Texture2D" uid="uid://c5q3xx61ya6nv" path="res://artAssets/character_map_assets/playerTowerSprites/House1.png" id="1_su2ob"]
-[ext_resource type="PackedScene" uid="uid://cnb1ssvydptsb" path="res://scenes/PlayerUnits/lancer/player_lancer_unit.tscn" id="2_52n58"]
-
-[sub_resource type="PackedScene" id="PackedScene_52n58"]
+[ext_resource type="PackedScene" uid="uid://cnb1ssvydptsb" path="res://scenes/PlayerUnits/lancer/player_lancer_unit.tscn" id="2_3o32b"]
+[ext_resource type="PackedScene" uid="uid://ti2ay5fu51ux" path="res://scenes/PlayerUnits/pawnUnits/player_pawn_unit.tscn" id="3_6eg63"]
+[ext_resource type="PackedScene" uid="uid://ctspr6aafm7n0" path="res://scenes/PlayerUnits/mageUnit/mage_unit.tscn" id="3_j8rid"]
+[ext_resource type="PackedScene" uid="uid://cifortxf6ro7e" path="res://scenes/PlayerUnits/archerUnit/archer_unit.tscn" id="4_6eg63"]
+[ext_resource type="PackedScene" uid="uid://7o4yn2odraaf" path="res://scenes/PlayerUnits/heavy_unit/heavy_unit.tscn" id="6_52yxl"]
 
 [node name="playerTower" type="Node2D"]
 script = ExtResource("1_5d0n8")
-lancerUnit = ExtResource("2_52n58")
-pawnUnit = SubResource("PackedScene_52n58")
+lancerUnit = ExtResource("2_3o32b")
+pawnUnit = ExtResource("3_6eg63")
+mageUnit = ExtResource("3_j8rid")
+archerUnit = ExtResource("4_6eg63")
+heavyUnit = ExtResource("6_52yxl")
+spawnPointH = 65.0
+spawnPointW = 32.5
 
 [node name="playerTowerlevel1Sprite" type="Sprite2D" parent="."]
-z_index = 3
+z_index = 5
 texture = ExtResource("1_su2ob")
 
 [node name="unit_spawn_point" type="Node2D" parent="."]
+position = Vector2(0, 16)

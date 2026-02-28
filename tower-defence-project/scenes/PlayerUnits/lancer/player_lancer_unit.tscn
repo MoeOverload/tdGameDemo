@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://d1cgjag3tkt0c" path="res://artAssets/character_map_assets/playerLancerUnit/Lancer_Run.png" id="4_qonrl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qw5bc"]
-radius = 12.0
-height = 46.0
+radius = 25.0
+height = 70.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_desv3"]
 atlas = ExtResource("1_x5p6c")
@@ -226,7 +226,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_io1pg")
 }],
-"loop": true,
+"loop": false,
 "name": &"run",
 "speed": 12.0
 }]
@@ -234,14 +234,14 @@ animations = [{
 [node name="playerLancerUnit" type="Node2D"]
 z_index = 4
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="player_lancer_unit" type="CharacterBody2D" parent="."]
+z_index = 4
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_vv3bq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_lancer_unit"]
 shape = SubResource("CapsuleShape2D_qw5bc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.6, 0.6)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player_lancer_unit"]
 sprite_frames = SubResource("SpriteFrames_pmi0v")
-animation = &"idle"
-autoplay = "idle"
+animation = &"attack"

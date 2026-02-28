@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ti2ay5fu51ux"]
+[gd_scene load_steps=27 format=3 uid="uid://ti2ay5fu51ux"]
 
 [ext_resource type="Script" uid="uid://8udh7ixbax2i" path="res://scenes/PlayerUnits/pawnUnits/playerPawnUnit.gd" id="1_tadul"]
 [ext_resource type="Texture2D" uid="uid://tv0o612c3b31" path="res://artAssets/character_map_assets/playerPawnUnit/Pawn_Interact Knife.png" id="1_ujfsv"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://btavaa530v3kc" path="res://artAssets/character_map_assets/playerPawnUnit/Pawn_Run Knife.png" id="3_1jq7q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bsf3w"]
+radius = 26.666666
+height = 63.333332
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8gj2"]
 atlas = ExtResource("1_ujfsv")
@@ -129,7 +131,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5c0sv")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 12.0
 }, {
@@ -152,23 +154,46 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_avrrc")
 }],
-"loop": true,
+"loop": false,
 "name": &"run",
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tadul"]
+size = Vector2(58.333332, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jq7q"]
+size = Vector2(58.33333, 60)
+
 [node name="playerPawnUnit" type="Node2D"]
 z_index = 4
 
-[node name="playerPawnUnit" type="CharacterBody2D" parent="."]
+[node name="playerPawnUnit" type="CharacterBody2D" parent="." groups=["playerPawn"]]
+z_index = 4
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_tadul")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit"]
 shape = SubResource("CapsuleShape2D_bsf3w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="playerPawnUnit"]
-scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_efulv")
-animation = &"run"
-autoplay = "idle"
-frame_progress = 0.5195369
+animation = &"idle"
+
+[node name="attack_box" type="Area2D" parent="playerPawnUnit"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit/attack_box"]
+position = Vector2(19.166666, 8.333333)
+shape = SubResource("RectangleShape2D_tadul")
+
+[node name="enemy_detection" type="Area2D" parent="playerPawnUnit"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit/enemy_detection"]
+position = Vector2(19.166666, 0)
+shape = SubResource("RectangleShape2D_1jq7q")
+
+[node name="attack_cooldown" type="Timer" parent="playerPawnUnit"]
+wait_time = 1.5
+
+[connection signal="area_entered" from="playerPawnUnit/enemy_detection" to="playerPawnUnit" method="_on_enemy_detection_area_entered"]
+[connection signal="timeout" from="playerPawnUnit/attack_cooldown" to="playerPawnUnit" method="_on_attack_cooldown_timeout"]

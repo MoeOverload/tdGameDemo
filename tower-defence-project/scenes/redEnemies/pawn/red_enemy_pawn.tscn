@@ -1,10 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://ti7ikfhffpge"]
+[gd_scene load_steps=27 format=3 uid="uid://ti7ikfhffpge"]
 
 [ext_resource type="Texture2D" uid="uid://dcgtogerehfx1" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Interact Knife.png" id="1_itlwn"]
+[ext_resource type="Script" uid="uid://bkjtmgjivcc1o" path="res://scenes/redEnemies/pawn/enemy_pawn.gd" id="1_xkinw"]
 [ext_resource type="Texture2D" uid="uid://kuuxf7v3x113" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Idle Knife.png" id="2_xkinw"]
 [ext_resource type="Texture2D" uid="uid://c3agg6aw8w0mb" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Run Knife.png" id="3_fsllh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r0hb5"]
+radius = 20.0
+height = 66.666664
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s513j"]
 atlas = ExtResource("1_itlwn")
@@ -150,9 +153,18 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkinw"]
+size = Vector2(46, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fsllh"]
+radius = 94.0
+
 [node name="redEnemyPawn" type="Node2D"]
 
 [node name="enemyPawn" type="CharacterBody2D" parent="."]
+z_index = 4
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_xkinw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemyPawn"]
 shape = SubResource("CapsuleShape2D_r0hb5")
@@ -160,3 +172,16 @@ shape = SubResource("CapsuleShape2D_r0hb5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemyPawn"]
 sprite_frames = SubResource("SpriteFrames_dlpgo")
 animation = &"run"
+
+[node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="attack_box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_box"]
+position = Vector2(13, 3)
+shape = SubResource("RectangleShape2D_xkinw")
+
+[node name="enemy_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detection"]
+shape = SubResource("CircleShape2D_fsllh")

@@ -162,8 +162,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tadul"]
 size = Vector2(58.333332, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jq7q"]
-size = Vector2(58.33333, 60)
+[sub_resource type="CircleShape2D" id="CircleShape2D_tadul"]
+radius = 105.211426
 
 [node name="playerPawnUnit" type="Node2D"]
 z_index = 4
@@ -189,8 +189,7 @@ shape = SubResource("RectangleShape2D_tadul")
 [node name="enemy_detection" type="Area2D" parent="playerPawnUnit"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit/enemy_detection"]
-position = Vector2(19.166666, 0)
-shape = SubResource("RectangleShape2D_1jq7q")
+shape = SubResource("CircleShape2D_tadul")
 
 [node name="attack_cooldown" type="Timer" parent="playerPawnUnit"]
 wait_time = 1.5

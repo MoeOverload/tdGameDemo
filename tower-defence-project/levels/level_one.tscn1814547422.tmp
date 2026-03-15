@@ -965,7 +965,7 @@ position = Vector2(67, 343)
 position = Vector2(1214, 348)
 
 [node name="worldBoundary" type="StaticBody2D" parent="."]
-position = Vector2(614, 412)
+position = Vector2(614, 446)
 scale = Vector2(0.88, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldBoundary"]
@@ -974,7 +974,7 @@ scale = Vector2(8.640002, 1)
 shape = SubResource("WorldBoundaryShape2D_m04wh")
 
 [node name="worldBoundary2" type="StaticBody2D" parent="."]
-position = Vector2(616.99994, 311)
+position = Vector2(609, 293)
 rotation = 3.1394835
 scale = Vector2(0.88, 1)
 

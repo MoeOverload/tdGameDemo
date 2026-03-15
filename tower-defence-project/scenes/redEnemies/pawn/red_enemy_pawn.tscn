@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ti7ikfhffpge"]
+[gd_scene load_steps=26 format=3 uid="uid://ti7ikfhffpge"]
 
 [ext_resource type="Texture2D" uid="uid://dcgtogerehfx1" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Interact Knife.png" id="1_itlwn"]
 [ext_resource type="Script" uid="uid://bkjtmgjivcc1o" path="res://scenes/redEnemies/pawn/enemy_pawn.gd" id="1_xkinw"]
@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c3agg6aw8w0mb" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Run Knife.png" id="3_fsllh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r0hb5"]
-radius = 20.0
-height = 66.666664
+radius = 25.0
+height = 73.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s513j"]
 atlas = ExtResource("1_itlwn")
@@ -153,15 +153,12 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkinw"]
-size = Vector2(46, 14)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_fsllh"]
-radius = 94.0
+radius = 210.01
 
-[node name="redEnemyPawn" type="Node2D"]
+[node name="redEnemyPawn" type="Node2D" groups=["enemy_unit"]]
 
-[node name="enemyPawn" type="CharacterBody2D" parent="."]
+[node name="enemyPawn" type="CharacterBody2D" parent="." groups=["enemy_pawn", "enemy_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_xkinw")
@@ -173,15 +170,34 @@ shape = SubResource("CapsuleShape2D_r0hb5")
 sprite_frames = SubResource("SpriteFrames_dlpgo")
 animation = &"run"
 
-[node name="attack_cooldown" type="Timer" parent="."]
+[node name="attack_cooldown" type="Timer" parent="enemyPawn"]
+wait_time = 1.5
 
-[node name="attack_box" type="Area2D" parent="."]
+[node name="enemy_detection" type="Area2D" parent="enemyPawn"]
+scale = Vector2(1.6666666, 1.6666666)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_box"]
-position = Vector2(13, 3)
-shape = SubResource("RectangleShape2D_xkinw")
-
-[node name="enemy_detection" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyPawn/enemy_detection"]
 shape = SubResource("CircleShape2D_fsllh")
+
+[node name="health_hud" type="Control" parent="enemyPawn"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 28.333332
+offset_top = -65.0
+offset_right = 68.33333
+offset_bottom = -25.0
+
+[node name="damage_label" type="Label" parent="enemyPawn/health_hud"]
+visible = false
+modulate = Color(1, 0, 0.050980393, 1)
+z_index = 8
+layout_mode = 0
+offset_left = -15.0
+offset_top = 5.0
+offset_right = 25.0
+offset_bottom = 28.0
+horizontal_alignment = 1
+
+[connection signal="timeout" from="enemyPawn/attack_cooldown" to="enemyPawn" method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="enemyPawn/enemy_detection" to="enemyPawn" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="enemyPawn/enemy_detection" to="enemyPawn" method="_on_enemy_detection_body_exited"]

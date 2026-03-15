@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ti2ay5fu51ux"]
+[gd_scene load_steps=26 format=3 uid="uid://ti2ay5fu51ux"]
 
 [ext_resource type="Script" uid="uid://8udh7ixbax2i" path="res://scenes/PlayerUnits/pawnUnits/playerPawnUnit.gd" id="1_tadul"]
 [ext_resource type="Texture2D" uid="uid://tv0o612c3b31" path="res://artAssets/character_map_assets/playerPawnUnit/Pawn_Interact Knife.png" id="1_ujfsv"]
@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://btavaa530v3kc" path="res://artAssets/character_map_assets/playerPawnUnit/Pawn_Run Knife.png" id="3_1jq7q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bsf3w"]
-radius = 26.666666
-height = 63.333332
+radius = 25.0
+height = 73.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8gj2"]
 atlas = ExtResource("1_ujfsv")
@@ -159,16 +159,13 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tadul"]
-size = Vector2(58.333332, 20)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_tadul"]
-radius = 105.211426
+radius = 210.0066
 
-[node name="playerPawnUnit" type="Node2D"]
+[node name="playerPawnUnit" type="Node2D" groups=["player_unit"]]
 z_index = 4
 
-[node name="playerPawnUnit" type="CharacterBody2D" parent="." groups=["playerPawn"]]
+[node name="playerPawnUnit" type="CharacterBody2D" parent="." groups=["player_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_tadul")
@@ -180,12 +177,6 @@ shape = SubResource("CapsuleShape2D_bsf3w")
 sprite_frames = SubResource("SpriteFrames_efulv")
 animation = &"idle"
 
-[node name="attack_box" type="Area2D" parent="playerPawnUnit"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit/attack_box"]
-position = Vector2(19.166666, 8.333333)
-shape = SubResource("RectangleShape2D_tadul")
-
 [node name="enemy_detection" type="Area2D" parent="playerPawnUnit"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit/enemy_detection"]
@@ -194,5 +185,19 @@ shape = SubResource("CircleShape2D_tadul")
 [node name="attack_cooldown" type="Timer" parent="playerPawnUnit"]
 wait_time = 1.5
 
-[connection signal="area_entered" from="playerPawnUnit/enemy_detection" to="playerPawnUnit" method="_on_enemy_detection_area_entered"]
+[node name="player_unit_hud" type="Control" parent="playerPawnUnit"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="health_label" type="Label" parent="playerPawnUnit/player_unit_hud"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="body_entered" from="playerPawnUnit/enemy_detection" to="playerPawnUnit" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="playerPawnUnit/enemy_detection" to="playerPawnUnit" method="_on_enemy_detection_body_exited"]
 [connection signal="timeout" from="playerPawnUnit/attack_cooldown" to="playerPawnUnit" method="_on_attack_cooldown_timeout"]

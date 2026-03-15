@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7vfj"]
 size = Vector2(19, 108)
 
-[node name="enemy_tower" type="Node2D" groups=["enemyTower"]]
+[node name="enemy_tower" type="Node2D"]
 z_index = 5
 script = ExtResource("1_e4qge")
 pawnUnit = ExtResource("2_1rs2x")

@@ -177,7 +177,7 @@ func get_closest_enemy():
 	var closest = null
 	var closest_dist = INF
 	for enemy in enemies_in_range:
-		if!is_instance_valid(enemy):
+		if !is_instance_valid(enemy):
 			continue
 		var d = global_position.distance_to(enemy.global_position)
 		if d < closest_dist:

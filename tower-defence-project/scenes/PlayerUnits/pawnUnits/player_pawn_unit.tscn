@@ -168,6 +168,7 @@ z_index = 4
 [node name="playerPawnUnit" type="CharacterBody2D" parent="." groups=["player_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
+collision_mask = 2
 script = ExtResource("1_tadul")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit"]
@@ -178,6 +179,7 @@ sprite_frames = SubResource("SpriteFrames_efulv")
 animation = &"idle"
 
 [node name="enemy_detection" type="Area2D" parent="playerPawnUnit"]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerPawnUnit/enemy_detection"]
 shape = SubResource("CircleShape2D_tadul")

@@ -29,4 +29,9 @@ shape = SubResource("RectangleShape2D_x7vfj")
 wait_time = 3.057
 one_shot = true
 
+[node name="roundCooldown" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="roundCooldown" to="." method="_on_round_cooldown_timeout"]

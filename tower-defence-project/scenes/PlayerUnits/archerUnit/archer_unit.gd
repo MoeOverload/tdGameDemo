@@ -2,15 +2,21 @@ extends CharacterBody2D
 var health = 8
 var damage
 var enemies_in_range = []
-var attack_power = 4
 var can_attack = true
 var enemy_unit = null
 var enemy_tower = null
 var move_speed = 30
 var direction = 1.0
+var damage_label_timer = 0.0
+var damage_label_time = 0.5
 @onready var reload_timer = $reloadTimer
 @onready var current_state = state.RUN
 @onready var anim = $AnimatedSprite2D
+@onready var health_hud = $player_unit_hud/health_label
+@onready var arrow_spawn = $arrowSpawn
+
+@export var arrow_scene : PackedScene
+
 enum state{
 	IDLE,
 	RUN,
@@ -27,7 +33,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float)-> void:
 	clean_enemy_list()
-	print(enemies_in_range, " " , current_state)
+	
 	match current_state:
 		state.IDLE:
 			handle_idle(delta)
@@ -66,6 +72,20 @@ func get_valid_enemy():
 			return enemy
 		return null
 
+#taking damgage function
+func take_damage(amount:int):
+	damage = amount
+	health -= amount
+	current_state = state.HURT
+
+func shoot_arrow():
+	var arrow = arrow_scene.instantiate()
+	get_tree().current_scene.add_child(arrow)
+
+	arrow.global_position = arrow_spawn.global_position
+	var dir = (enemy_unit.global_position - arrow.global_position).normalized()
+	arrow.direction = dir
+	
 
 func handle_idle(_delta):
 	velocity = Vector2.ZERO
@@ -91,15 +111,27 @@ func handle_shoot(delta):
 	if can_attack:
 		anim.play("shooting")
 		reload_timer.start()
-		enemy_unit.take_damage(attack_power)
+		shoot_arrow()
 		can_attack = false
 
 
 func handle_hurt(delta):
-	pass
+	health_hud.text = str("-",damage)
+	health_hud.visible = true
+	damage_label_timer += delta
+	if damage_label_timer >= damage_label_time:
+		health_hud.visible = false
+		damage_label_timer = 0.0
+		if enemy_unit:
+			
+			current_state = state.SHOOT
+		else:
+			current_state = state.RUN
+	if health <= 0:
+		current_state = state.DEATH
 
 func handle_death(delta):
-	pass
+	self.queue_free()
 
 func _on_enemy_detection_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy_unit"):

@@ -1,6 +1,8 @@
 extends Node2D
 var can_spawn = true
-var R1_numSpawned = 0
+var round_active = true
+var numSpawned = 0
+var unit_scene = null
 @export var lancerUnit: PackedScene
 @export var pawnUnit: PackedScene
 @export var mageUnit: PackedScene
@@ -10,6 +12,7 @@ var R1_numSpawned = 0
 @export var spawnPointW: float = 300
 @onready var spawner = $enemySpawner
 @onready var spawnTimer = $spawnTimer
+@onready var roundCooldown = $roundCooldown
 enum state{
 	ROUND01,
 	ROUND02,
@@ -20,11 +23,14 @@ enum state{
 @onready var current_state = state.ROUND01
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	handle_current_round()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print(current_state,numSpawned)
+	
+func handle_current_round():
 	match current_state:
 		state.ROUND01:
 			handle_ROUND1()
@@ -36,19 +42,44 @@ func _process(delta: float) -> void:
 			handle_ROUND4()
 		state.FINALROUND:
 			handle_F_round()
-
 func handle_ROUND1():
-	if can_spawn:
-		spawn_pawn()
-		spawnTimer.start()
-		can_spawn = false
-		R1_numSpawned += 1
-	if R1_numSpawned == 5:
+	if !round_active:
+		return
+	if !can_spawn:
+		return
+	if numSpawned >= 5:
+		round_active = false
 		current_state = state.ROUND02
+		roundCooldown.start()
+		return
+
+	# Spawn unit
+	spawn_unit(pawnUnit)
+	numSpawned += 1
+
+	can_spawn = false
+	spawnTimer.start()
 	
 func handle_ROUND2():
-	pass
+	if !round_active:
+		return
+	if !can_spawn:
+		return
 	
+	if numSpawned >=6:
+		round_active = false
+		
+		current_state = state.ROUND03
+		roundCooldown.start()
+		return
+	if numSpawned <= 3:
+		spawn_unit(pawnUnit)
+	else:
+		spawn_unit(archerUnit)
+	numSpawned += 1
+	can_spawn = false
+	spawnTimer.start()
+
 func handle_ROUND3():
 	pass
 	
@@ -60,12 +91,19 @@ func handle_F_round():
 	
 func _on_spawn_timer_timeout() -> void:
 	can_spawn = true
+	handle_current_round()
 
-func spawn_pawn():
-	if pawnUnit == null:
+func spawn_unit(unit_scene):
+	if unit_scene == null:
 		return
 	var random_x = randf_range(-spawnPointW/2, spawnPointW/2)
 	var random_y = randf_range(-spawnPointH/2, spawnPointH/2)
-	var new_pawn_unit = pawnUnit.instantiate()
-	new_pawn_unit.global_position = spawner.global_position + Vector2(random_x,random_y)
-	get_tree().current_scene.add_child(new_pawn_unit)
+	var new_unit = unit_scene.instantiate()
+	new_unit.global_position = spawner.global_position + Vector2(random_x,random_y)
+	get_tree().current_scene.add_child(new_unit)
+
+
+func _on_round_cooldown_timeout() -> void:
+	round_active = true
+	numSpawned = 0
+	

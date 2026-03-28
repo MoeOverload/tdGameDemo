@@ -161,6 +161,7 @@ radius = 210.01
 [node name="enemyPawn" type="CharacterBody2D" parent="." groups=["enemy_pawn", "enemy_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
+collision_layer = 2
 script = ExtResource("1_xkinw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemyPawn"]

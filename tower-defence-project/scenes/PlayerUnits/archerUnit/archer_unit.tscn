@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://cifortxf6ro7e"]
+[gd_scene load_steps=27 format=3 uid="uid://cifortxf6ro7e"]
 
 [ext_resource type="Script" uid="uid://c5bpb8i80t1t" path="res://scenes/PlayerUnits/archerUnit/archer_unit.gd" id="1_kffvd"]
 [ext_resource type="Texture2D" uid="uid://ceo5ylvijjhm" path="res://artAssets/character_map_assets/player_archer_unit/Archer_Idle.png" id="2_5ycmg"]
+[ext_resource type="PackedScene" uid="uid://bddvlycmelyrt" path="res://scenes/PlayerUnits/archerUnit/player_arrow.tscn" id="2_uogje"]
 [ext_resource type="Texture2D" uid="uid://b7y8kkmqpiupe" path="res://artAssets/character_map_assets/player_archer_unit/Archer_Run.png" id="3_uogje"]
 [ext_resource type="Texture2D" uid="uid://0x8yorpptfo3" path="res://artAssets/character_map_assets/player_archer_unit/Archer_Shoot.png" id="4_6m3kc"]
 
@@ -157,10 +158,12 @@ height = 1373.3368
 
 [node name="archerUnit" type="Node2D" groups=["player_unit"]]
 
-[node name="archerUnit" type="CharacterBody2D" parent="."]
+[node name="archerUnit" type="CharacterBody2D" parent="." groups=["player_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
+collision_mask = 2
 script = ExtResource("1_kffvd")
+arrow_scene = ExtResource("2_uogje")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="archerUnit"]
 shape = SubResource("CapsuleShape2D_06wyl")
@@ -172,6 +175,7 @@ frame = 7
 frame_progress = 1.0
 
 [node name="enemyDetection" type="Area2D" parent="archerUnit"]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="archerUnit/enemyDetection"]
 position = Vector2(-1.5258789e-05, -1.6666669)
@@ -179,7 +183,24 @@ rotation = 1.569434
 shape = SubResource("CapsuleShape2D_5ycmg")
 
 [node name="reloadTimer" type="Timer" parent="archerUnit"]
-wait_time = 3.0
+wait_time = 4.0
+
+[node name="player_unit_hud" type="Control" parent="archerUnit"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="health_label" type="Label" parent="archerUnit/player_unit_hud"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 26.666666
+offset_top = -46.666664
+offset_right = 66.666664
+offset_bottom = -23.666664
+
+[node name="arrowSpawn" type="Marker2D" parent="archerUnit"]
+position = Vector2(29.999998, -18.333334)
 
 [connection signal="body_entered" from="archerUnit/enemyDetection" to="archerUnit" method="_on_enemy_detection_body_entered"]
 [connection signal="body_exited" from="archerUnit/enemyDetection" to="archerUnit" method="_on_enemy_detection_body_exited"]

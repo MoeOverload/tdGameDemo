@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3d5wftrw3uq6"]
+[gd_scene load_steps=6 format=3 uid="uid://b3d5wftrw3uq6"]
 
 [ext_resource type="Script" uid="uid://drl6ivrlpftdc" path="res://scenes/redEnemyTower/enemy_tower.gd" id="1_e4qge"]
 [ext_resource type="Texture2D" uid="uid://b6obbqlribpi4" path="res://artAssets/character_map_assets/enemyTowerSprites/redEnemy/House1.png" id="1_x7vfj"]
 [ext_resource type="PackedScene" uid="uid://ti7ikfhffpge" path="res://scenes/redEnemies/pawn/red_enemy_pawn.tscn" id="2_1rs2x"]
+[ext_resource type="PackedScene" uid="uid://bqug83vlewee4" path="res://scenes/redEnemies/archer/red_enemy_archer.tscn" id="3_ectm6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7vfj"]
 size = Vector2(19, 108)
@@ -11,6 +12,7 @@ size = Vector2(19, 108)
 z_index = 5
 script = ExtResource("1_e4qge")
 pawnUnit = ExtResource("2_1rs2x")
+archerUnit = ExtResource("3_ectm6")
 spawnPointH = 65.0
 spawnPointW = 32.5
 

@@ -16,7 +16,11 @@ func checkDir():
 		arrowSprite.flip_h = false
 	else:
 		arrowSprite.flip_h = true
-func _on_enemy_detection_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemy_unit"):
+
+	
+
+
+func _on_player_detection_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player_unit"):
 		body.take_damage(atkdamage)
 		self.queue_free()

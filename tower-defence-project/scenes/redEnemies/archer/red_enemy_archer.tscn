@@ -1,0 +1,200 @@
+[gd_scene load_steps=27 format=3 uid="uid://bqug83vlewee4"]
+
+[ext_resource type="Script" uid="uid://bfbtimmd1llqi" path="res://scenes/redEnemies/archer/red_enemy_archer.gd" id="1_2s58o"]
+[ext_resource type="Texture2D" uid="uid://dul37hj765u5k" path="res://artAssets/character_map_assets/redEnemySprites/archer/Archer_Idle.png" id="1_oailc"]
+[ext_resource type="Texture2D" uid="uid://cb0hef4v35q67" path="res://artAssets/character_map_assets/redEnemySprites/archer/Archer_Run.png" id="2_2s58o"]
+[ext_resource type="PackedScene" uid="uid://dlltm21vak0vp" path="res://scenes/redEnemies/archer/enemy_arrow.tscn" id="2_y524v"]
+[ext_resource type="Texture2D" uid="uid://3tkhysmrkds6" path="res://artAssets/character_map_assets/redEnemySprites/archer/Archer_Shoot.png" id="3_y524v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xeu5o"]
+radius = 21.0
+height = 74.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnu44"]
+atlas = ExtResource("1_oailc")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpeor"]
+atlas = ExtResource("1_oailc")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xiini"]
+atlas = ExtResource("1_oailc")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfwg0"]
+atlas = ExtResource("1_oailc")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc7xl"]
+atlas = ExtResource("1_oailc")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogcw5"]
+atlas = ExtResource("1_oailc")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5xwx"]
+atlas = ExtResource("2_2s58o")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tplo"]
+atlas = ExtResource("2_2s58o")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1bgg"]
+atlas = ExtResource("2_2s58o")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dvw3"]
+atlas = ExtResource("2_2s58o")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nswgd"]
+atlas = ExtResource("3_y524v")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41hpk"]
+atlas = ExtResource("3_y524v")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_888ma"]
+atlas = ExtResource("3_y524v")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylfg3"]
+atlas = ExtResource("3_y524v")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3a6h"]
+atlas = ExtResource("3_y524v")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu8ag"]
+atlas = ExtResource("3_y524v")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5c5h"]
+atlas = ExtResource("3_y524v")
+region = Rect2(1152, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbh45"]
+atlas = ExtResource("3_y524v")
+region = Rect2(1344, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b4eox"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnu44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpeor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xiini")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfwg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc7xl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogcw5")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5xwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tplo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1bgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dvw3")
+}],
+"loop": false,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nswgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41hpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_888ma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylfg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3a6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu8ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5c5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbh45")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vesyb"]
+radius = 149.90395
+height = 1366.6841
+
+[node name="redEnemyArcher" type="Node2D" groups=["enemy_unit"]]
+
+[node name="redEnemyArcher" type="CharacterBody2D" parent="." groups=["enemy_unit"]]
+z_index = 4
+scale = Vector2(0.6, 0.6)
+collision_layer = 2
+script = ExtResource("1_2s58o")
+arrow_scene = ExtResource("2_y524v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="redEnemyArcher"]
+shape = SubResource("CapsuleShape2D_xeu5o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="redEnemyArcher"]
+sprite_frames = SubResource("SpriteFrames_b4eox")
+animation = &"run"
+
+[node name="enemyDetection" type="Area2D" parent="redEnemyArcher"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="redEnemyArcher/enemyDetection"]
+rotation = 1.5709692
+shape = SubResource("CapsuleShape2D_vesyb")
+
+[node name="reloadTimer" type="Timer" parent="redEnemyArcher"]
+wait_time = 4.0
+
+[node name="enemyUnitHUD" type="Control" parent="redEnemyArcher"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="health_label" type="Label" parent="redEnemyArcher/enemyUnitHUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="arrowSpawn" type="Marker2D" parent="redEnemyArcher"]
+
+[connection signal="body_entered" from="redEnemyArcher/enemyDetection" to="redEnemyArcher" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="redEnemyArcher/enemyDetection" to="redEnemyArcher" method="_on_enemy_detection_body_exited"]

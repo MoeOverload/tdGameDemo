@@ -23,14 +23,12 @@ enum state{
 @onready var current_state = state.ROUND01
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	handle_current_round()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	print(current_state,numSpawned)
-	
-func handle_current_round():
 	match current_state:
 		state.ROUND01:
 			handle_ROUND1()
@@ -42,12 +40,14 @@ func handle_current_round():
 			handle_ROUND4()
 		state.FINALROUND:
 			handle_F_round()
+
+	
 func handle_ROUND1():
 	if !round_active:
 		return
 	if !can_spawn:
 		return
-	if numSpawned >= 5:
+	if numSpawned >= 7:
 		round_active = false
 		current_state = state.ROUND02
 		roundCooldown.start()
@@ -66,13 +66,15 @@ func handle_ROUND2():
 	if !can_spawn:
 		return
 	
-	if numSpawned >=6:
+	if numSpawned >=8:
 		round_active = false
 		
 		current_state = state.ROUND03
 		roundCooldown.start()
 		return
-	if numSpawned <= 3:
+	if numSpawned <= 1:
+		spawn_unit(archerUnit)	
+	if numSpawned >= 1 and numSpawned<= 5:
 		spawn_unit(pawnUnit)
 	else:
 		spawn_unit(archerUnit)
@@ -91,7 +93,7 @@ func handle_F_round():
 	
 func _on_spawn_timer_timeout() -> void:
 	can_spawn = true
-	handle_current_round()
+	
 
 func spawn_unit(unit_scene):
 	if unit_scene == null:
@@ -104,6 +106,6 @@ func spawn_unit(unit_scene):
 
 
 func _on_round_cooldown_timeout() -> void:
-	round_active = true
-	numSpawned = 0
 	
+	numSpawned = 0
+	round_active = true

@@ -108,11 +108,12 @@ func handle_shoot(delta):
 			return
 	player_unit = get_closest_enemy()
 	velocity = Vector2.ZERO
-	if can_attack:
-		anim.play("shooting")
-		reload_timer.start()
-		shoot_arrow()
-		can_attack = false
+	if !can_attack:
+		return
+	anim.play("shooting")
+	reload_timer.start()
+	shoot_arrow()
+	can_attack = false
 
 
 func handle_hurt(delta):

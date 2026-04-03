@@ -1,8 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://cnb1ssvydptsb"]
+[gd_scene load_steps=29 format=3 uid="uid://cnb1ssvydptsb"]
 
 [ext_resource type="Script" uid="uid://d1yovulu6h6nh" path="res://scenes/PlayerUnits/lancer/player_lancer_unit.gd" id="1_vv3bq"]
 [ext_resource type="Texture2D" uid="uid://teyoctwq0ehm" path="res://artAssets/character_map_assets/playerLancerUnit/Lancer_Right_Attack.png" id="1_x5p6c"]
-[ext_resource type="Texture2D" uid="uid://dvjc2qinqmgi7" path="res://artAssets/character_map_assets/playerLancerUnit/Lancer_Right_Defence.png" id="2_gn8kl"]
 [ext_resource type="Texture2D" uid="uid://in6rgvu48bbs" path="res://artAssets/character_map_assets/playerLancerUnit/Lancer_Idle.png" id="3_1gy16"]
 [ext_resource type="Texture2D" uid="uid://d1cgjag3tkt0c" path="res://artAssets/character_map_assets/playerLancerUnit/Lancer_Run.png" id="4_qonrl"]
 
@@ -21,30 +20,6 @@ region = Rect2(0, 0, 320, 320)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yjiog"]
 atlas = ExtResource("1_x5p6c")
 region = Rect2(320, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rlqyo"]
-atlas = ExtResource("2_gn8kl")
-region = Rect2(0, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5nmer"]
-atlas = ExtResource("2_gn8kl")
-region = Rect2(320, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3f7dy"]
-atlas = ExtResource("2_gn8kl")
-region = Rect2(640, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pissn"]
-atlas = ExtResource("2_gn8kl")
-region = Rect2(960, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t767m"]
-atlas = ExtResource("2_gn8kl")
-region = Rect2(1280, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m2uk8"]
-atlas = ExtResource("2_gn8kl")
-region = Rect2(1600, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u0c3s"]
 atlas = ExtResource("3_1gy16")
@@ -145,29 +120,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rlqyo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5nmer")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3f7dy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pissn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t767m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m2uk8")
-}],
-"loop": false,
-"name": &"defence",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_u0c3s")
 }, {
 "duration": 1.0,
@@ -231,12 +183,16 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="playerLancerUnit" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_u64xy"]
+radius = 468.34518
+
+[node name="playerLancerUnit" type="Node2D" groups=["player_unit"]]
 z_index = 4
 
-[node name="player_lancer_unit" type="CharacterBody2D" parent="."]
+[node name="player_lancer_unit" type="CharacterBody2D" parent="." groups=["player_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
+collision_mask = 2
 script = ExtResource("1_vv3bq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_lancer_unit"]
@@ -245,3 +201,30 @@ shape = SubResource("CapsuleShape2D_qw5bc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player_lancer_unit"]
 sprite_frames = SubResource("SpriteFrames_pmi0v")
 animation = &"attack"
+
+[node name="enemy_detection" type="Area2D" parent="player_lancer_unit"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_lancer_unit/enemy_detection"]
+shape = SubResource("CircleShape2D_u64xy")
+
+[node name="attack_cooldown" type="Timer" parent="player_lancer_unit"]
+wait_time = 2.0
+
+[node name="player_HUD" type="Control" parent="player_lancer_unit"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 20.0
+offset_top = -53.333332
+offset_right = 60.0
+offset_bottom = -13.333332
+
+[node name="health_label" type="Label" parent="player_lancer_unit/player_HUD"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="body_entered" from="player_lancer_unit/enemy_detection" to="player_lancer_unit" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="player_lancer_unit/enemy_detection" to="player_lancer_unit" method="_on_enemy_detection_body_exited"]
+[connection signal="timeout" from="player_lancer_unit/attack_cooldown" to="player_lancer_unit" method="_on_attack_cooldown_timeout"]

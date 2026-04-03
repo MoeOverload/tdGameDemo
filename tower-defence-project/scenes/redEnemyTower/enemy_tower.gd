@@ -74,7 +74,7 @@ func handle_ROUND2():
 		return
 	if numSpawned <= 1:
 		spawn_unit(archerUnit)	
-	if numSpawned >= 1 and numSpawned<= 5:
+	elif numSpawned >= 1 and numSpawned<= 5:
 		spawn_unit(pawnUnit)
 	else:
 		spawn_unit(archerUnit)

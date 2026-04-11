@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 #variables
-var health = 10
+var health = 13
 var damage
 var enemies_in_range = []
-var move_speed = 30
+var move_speed = 20
 var attack_power = 5
 var attack_range = 55
 var attack_rBuffer = 10
@@ -114,7 +114,7 @@ func handle_attack(delta):
 		
 #chase state logic
 func handle_chase(delta):
-	var chase_speed = 40
+	var chase_speed = 50
 	#check if the enemy is valid
 	if enemy_unit == null or !is_instance_valid(enemy_unit):
 		#if the list of enemies is not none

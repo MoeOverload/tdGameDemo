@@ -221,6 +221,7 @@ offset_bottom = -13.333332
 
 [node name="health_label" type="Label" parent="player_lancer_unit/player_HUD"]
 visible = false
+modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

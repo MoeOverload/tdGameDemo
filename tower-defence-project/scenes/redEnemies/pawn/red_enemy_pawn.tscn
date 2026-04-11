@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://ti7ikfhffpge"]
+[gd_scene load_steps=27 format=3 uid="uid://ti7ikfhffpge"]
 
 [ext_resource type="Texture2D" uid="uid://dcgtogerehfx1" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Interact Knife.png" id="1_itlwn"]
 [ext_resource type="Script" uid="uid://bkjtmgjivcc1o" path="res://scenes/redEnemies/pawn/enemy_pawn.gd" id="1_xkinw"]
+[ext_resource type="PackedScene" uid="uid://byu5ln0my6ecu" path="res://scenes/coin/gold_coin.tscn" id="2_fsllh"]
 [ext_resource type="Texture2D" uid="uid://kuuxf7v3x113" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Idle Knife.png" id="2_xkinw"]
 [ext_resource type="Texture2D" uid="uid://c3agg6aw8w0mb" path="res://artAssets/character_map_assets/redEnemySprites/pawn/Pawn_Run Knife.png" id="3_fsllh"]
 
@@ -163,6 +164,7 @@ z_index = 4
 scale = Vector2(0.6, 0.6)
 collision_layer = 2
 script = ExtResource("1_xkinw")
+coin = ExtResource("2_fsllh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemyPawn"]
 shape = SubResource("CapsuleShape2D_r0hb5")

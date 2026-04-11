@@ -16,7 +16,7 @@ var player_tower = null
 @onready var current_state = state.RUN
 @onready var anim = $AnimatedSprite2D
 @onready var damage_label = $health_hud/damage_label
-
+@export var coin : PackedScene
 enum state{
 	IDLE,
 	RUN,
@@ -55,6 +55,11 @@ func clean_unit_list():
 	for unit in player_units_in_range:
 		if !is_instance_valid(unit):
 			player_units_in_range.erase(unit)
+
+func coinDrop():
+	var newCoin = coin.instantiate()
+	get_tree().current_scene.add_child(newCoin)
+	newCoin.global_position = self.global_position
 
 func handle_idle(_delta):
 	velocity = Vector2.ZERO
@@ -142,6 +147,7 @@ func handle_hurt(delta):
 		current_state = state.DEATH
 
 func handle_death(delta):
+	coinDrop()
 	self.queue_free()
 	
 func take_damage(amount:int):

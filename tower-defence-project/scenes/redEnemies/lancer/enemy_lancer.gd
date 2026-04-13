@@ -1,25 +1,25 @@
 extends CharacterBody2D
-var health = 6
-var player_units_in_range = []
+#variables
+var health = 13
 var damage
-var move_speed = 30
-var direction = -1.0
-var can_attack = true
-var attack_power = 2
+var enemies_in_range = []
+var move_speed = 20
+var attack_power = 5
 var attack_range = 55
-var attack_Rbuffer = 10
-var damage_label_time = 0.5
+var attack_rBuffer = 10
+var direction = 1.0
+var can_attack = true
+var enemy_unit = null
+var enemy_tower = null
 var damage_label_timer = 0.0
-var player_unit = null
-var player_tower = null
-var coin_amount = 20
-var newCoin = null
-
+var damage_label_time = 0.5
 @onready var atck_cooldown = $attack_cooldown
 @onready var current_state = state.RUN
 @onready var anim = $AnimatedSprite2D
-@onready var damage_label = $health_hud/damage_label
-@export var coin : PackedScene
+@onready var health_hud = $health_hud/damage_label
+
+
+#states
 enum state{
 	IDLE,
 	RUN,
@@ -29,14 +29,16 @@ enum state{
 	DEATH,
 }
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-
-
+	pass # Replace with function body.
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float)-> void:
-	clean_unit_list()
+	clean_enemy_list()
+	#match the states/ statemachine
 	match current_state:
 		state.IDLE:
 			handle_idle(delta)
@@ -50,51 +52,52 @@ func _physics_process(delta: float)-> void:
 			handle_hurt(delta)
 		state.DEATH:
 			handle_death(delta)
+		
 	move_and_slide()
-	print(current_state)
-
-
-func clean_unit_list():
-	for unit in player_units_in_range:
-		if !is_instance_valid(unit):
-			player_units_in_range.erase(unit)
-
-func coinDrop():
-	newCoin = coin.instantiate()
-	get_tree().current_scene.add_child(newCoin)
-	newCoin.global_position = self.global_position
-	newCoin.setValue(coin_amount)
-	newCoin.fly_to(GameManager.c_target)
 	
 
+func clean_enemy_list():
+	for enemy in enemies_in_range:
+		if !is_instance_valid(enemy):
+			enemies_in_range.erase(enemy)
+#idle state logic
 func handle_idle(_delta):
+	#set velocity to zero
 	velocity = Vector2.ZERO
+	#play animation
 	anim.play("idle")
 	
+	
+#running state logic
 func handle_run(_delta):
+	#play animation
 	anim.play("run")
+	#flip direction of anim facing
 	if direction >=0:
 		anim.flip_h = false
 	else:
 		anim.flip_h = true
+	#set velocity x-axis 
 	velocity.x = direction * move_speed
 	
+	
+#attack state logic
 func handle_attack(delta):
 	#check if the enemy is valid
-	if player_unit == null or !is_instance_valid(player_unit):
+	if enemy_unit == null or !is_instance_valid(enemy_unit):
 		#if the list of enemies is not none
-		if player_units_in_range.size() > 0:
+		if enemies_in_range.size() > 0:
 			#target the first enemy in the list
-			player_unit = get_valid_unit()
+			enemy_unit = get_valid_enemy()
 		else:
 			#else change state
 			current_state = state.CHASE
 			return
 	#check distance from enemies
-	player_unit = get_closest_unit()
-	var distance = global_position.distance_to(player_unit.global_position)
+	enemy_unit = get_closest_enemy()
+	var distance = global_position.distance_to(enemy_unit.global_position)
 	#change state if distance is greater than varaible + buffer
-	if distance > attack_range + attack_Rbuffer:
+	if distance > attack_range + attack_rBuffer:
 		current_state = state.CHASE
 		return
 	#set velocity to zero
@@ -104,29 +107,32 @@ func handle_attack(delta):
 		#play animation start cooldown and send signal to the targeted enemy, reset cooldown var
 		anim.play("attack")
 		atck_cooldown.start()
-		player_unit.take_damage(attack_power)
+		enemy_unit.take_damage(attack_power)
 		can_attack = false
-	
+		
+		
+#chase state logic
 func handle_chase(delta):
+	var chase_speed = 50
 	#check if the enemy is valid
-	if player_unit == null or !is_instance_valid(player_unit):
+	if enemy_unit == null or !is_instance_valid(enemy_unit):
 		#if the list of enemies is not none
-		if player_units_in_range.size() > 0:
+		if enemies_in_range.size() > 0:
 			#target the first enemy in the list
-			player_unit = get_valid_unit()
+			enemy_unit = get_valid_enemy()
 		else:
 			#change state
 			current_state = state.RUN
 			return
 	#check distance to the enemy
-	var distance = global_position.distance_to(player_unit.global_position)
+	var distance = global_position.distance_to(enemy_unit.global_position)
 	#check if enemy is in attack range
 	if distance <= attack_range:
 		#change state accordingly
 		current_state= state.ATTACK
 		return
 	#set the chase direction
-	var chase_direction =  (player_unit.global_position - global_position).normalized()
+	var chase_direction =  (enemy_unit.global_position - global_position).normalized()
 	#play animation and flip based on direction
 	anim.play("run")
 	if chase_direction.x >=0:
@@ -134,17 +140,22 @@ func handle_chase(delta):
 	else:
 		anim.flip_h = true
 	#set velocity
-	velocity = chase_direction * move_speed
+	velocity = chase_direction * chase_speed
 	
-	
+#taking damgage function
+func take_damage(amount:int):
+	damage = amount
+	health -= amount
+	current_state = state.HURT
+#hurt state logic
 func handle_hurt(delta):
-	damage_label.text = str("-",damage)
-	damage_label.visible = true
+	health_hud.text = str("-",damage)
+	health_hud.visible = true
 	damage_label_timer += delta
 	if damage_label_timer >= damage_label_time:
-		damage_label.visible = false
+		health_hud.visible = false
 		damage_label_timer = 0.0
-		if player_unit:
+		if enemy_unit:
 			
 			current_state = state.CHASE
 		else:
@@ -152,62 +163,58 @@ func handle_hurt(delta):
 	if health <= 0:
 		current_state = state.DEATH
 
+#enemy validator
+func get_valid_enemy():
+	for enemy in enemies_in_range:
+		if is_instance_valid(enemy):
+			return enemy
+		return null
+			
 func handle_death(delta):
-	coinDrop()
-	
-		
 	self.queue_free()
 	
-func take_damage(amount:int):
-	damage = amount
-	health -= amount
-	current_state = state.HURT
-func get_valid_unit():
-	for unit in player_units_in_range:
-		if is_instance_valid(unit):
-			return unit
-	return null
-		
 #enemy distance checker
-func get_closest_unit():
+func get_closest_enemy():
 	var closest = null
 	var closest_dist = INF
-	for unit in player_units_in_range:
-		if !is_instance_valid(unit):
+	for enemy in enemies_in_range:
+		if !is_instance_valid(enemy):
 			continue
-		var d = global_position.distance_to(unit.global_position)
+		var d = global_position.distance_to(enemy.global_position)
 		if d < closest_dist:
-			closest = unit
+			closest = enemy
 			closest_dist = d
 	return closest
 	
-
-#attack cooldown reset
+	
+#attack cooldown reset timer
 func _on_attack_cooldown_timeout() -> void:
 	can_attack = true
 
-#player detection
-func _on_enemy_detection_body_entered(body: Node2D) -> void:
-	#check if enemy
-	if body.is_in_group("player_unit"):
-		#add enemy to list
-		player_units_in_range.append(body)
-		#set state and declare the enemy
-		if player_unit == null:
-			player_unit = body
-			current_state = state.CHASE
 
-#player detection (leaving)
+	
+#enemy detection logic
 func _on_enemy_detection_body_exited(body: Node2D) -> void:
 	#check if enemy
 	if body.is_in_group("player_unit"):
 		#subtract from enemy list
-		player_units_in_range.erase(body)
+		enemies_in_range.erase(body)
 		#check if enemy range list is greater than 0
-		if body == player_unit:
-			if player_units_in_range.size() > 0:
-				player_unit = player_units_in_range[0]
+		if body == enemy_unit:
+			if enemies_in_range.size() > 0:
+				enemy_unit = enemies_in_range[0]
 			else:
-				player_unit = null
+				enemy_unit = null
 				#if no enemies change state
 				current_state= state.RUN
+
+
+func _on_enemy_detection_body_entered(body: Node2D) -> void:
+	#check if enemy
+	if body.is_in_group("player_unit"):
+		#add enemy to list
+		enemies_in_range.append(body)
+		#set state and declare the enemy
+		if enemy_unit == null:
+			enemy_unit = body
+			current_state = state.CHASE

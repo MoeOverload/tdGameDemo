@@ -3,6 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GameManager.c_target = $coin_target/Marker2D.global_position
 	$Game_HUD.lancer_spawn_requested.connect(on_lancer_spawn_requested)
 	$Game_HUD.pawn_spawn_requested.connect(on_pawn_spawn_requested)
 	$Game_HUD.mage_spawn_requested.connect(on_mage_spawn_requested)

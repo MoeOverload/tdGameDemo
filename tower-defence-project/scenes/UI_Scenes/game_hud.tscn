@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyuqoqpwrxb6c"]
+[gd_scene load_steps=11 format=3 uid="uid://cyuqoqpwrxb6c"]
 
 [ext_resource type="Script" uid="uid://c40ljojdqd501" path="res://scenes/UI_Scenes/game_hud.gd" id="1_0vkfx"]
 [ext_resource type="Texture2D" uid="uid://c0oatujr7og2j" path="res://artAssets/Avatars/Avatars_02.png" id="1_nl2pv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dmes4aposcdnp" path="res://artAssets/Avatars/Avatars_04.png" id="7_a3v2j"]
 [ext_resource type="Texture2D" uid="uid://dqrbo6qa0ipmk" path="res://artAssets/Avatars/Avatars_03.png" id="8_lxgvp"]
 [ext_resource type="Texture2D" uid="uid://cdmw446a4m3ao" path="res://artAssets/Avatars/Avatars_01.png" id="9_84lmk"]
+[ext_resource type="Texture2D" uid="uid://dy8f8paci26cq" path="res://artAssets/UI_assets/coin/Icon_03.png" id="10_84lmk"]
 
 [node name="Game_HUD" type="Control"]
 z_index = 4
@@ -152,6 +153,25 @@ stretch_mode = 5
 
 [node name="spawnCapTimer" type="Timer" parent="."]
 wait_time = 0.6
+
+[node name="coinCounter" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 18.0
+offset_right = 180.0
+offset_bottom = 77.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="coinCounter"]
+layout_mode = 2
+theme_override_constants/separation = 26
+
+[node name="TextureRect" type="TextureRect" parent="coinCounter/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_84lmk")
+
+[node name="coin_counter" type="Label" parent="coinCounter/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
 
 [connection signal="timeout" from="res_count_timer" to="." method="_on_res_count_timer_timeout"]
 [connection signal="pressed" from="pawn_unit_button" to="." method="_on_pawn_unit_button_pressed"]

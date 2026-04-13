@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dd3sfys4uvrii"]
+[gd_scene load_steps=15 format=4 uid="uid://dd3sfys4uvrii"]
 
 [ext_resource type="Script" uid="uid://debwg5xyedkca" path="res://levels/main_game.gd" id="1_4wl7b"]
 [ext_resource type="Texture2D" uid="uid://dwbnb8hjoj3jj" path="res://artAssets/character_map_assets/Water Background color.png" id="1_qgle8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://e1s54wo7dtj6" path="res://scenes/playerTowerScene/player_tower.tscn" id="3_nxahq"]
 [ext_resource type="PackedScene" uid="uid://cyuqoqpwrxb6c" path="res://scenes/UI_Scenes/game_hud.tscn" id="5_4wl7b"]
 [ext_resource type="PackedScene" uid="uid://b3d5wftrw3uq6" path="res://scenes/redEnemyTower/enemy_tower.tscn" id="6_m04wh"]
+[ext_resource type="PackedScene" uid="uid://ds74gq0odegqn" path="res://scenes/coin/coin_target.tscn" id="7_hu4x8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tfbuk"]
 texture = ExtResource("1_qgle8")
@@ -982,3 +983,6 @@ scale = Vector2(0.88, 1)
 z_index = 3
 scale = Vector2(8.640002, 1)
 shape = SubResource("WorldBoundaryShape2D_m04wh")
+
+[node name="coin_target" parent="." instance=ExtResource("7_hu4x8")]
+position = Vector2(147, 52)

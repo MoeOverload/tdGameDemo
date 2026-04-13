@@ -1,0 +1,215 @@
+[gd_scene load_steps=29 format=3 uid="uid://cv35n41u3t1jw"]
+
+[ext_resource type="Script" uid="uid://rmxbkj0ampo5" path="res://scenes/redEnemies/lancer/enemy_lancer.gd" id="1_5tvvb"]
+[ext_resource type="Texture2D" uid="uid://btt44qcaaxfxg" path="res://artAssets/character_map_assets/redEnemySprites/lancer/Lancer_Right_Attack.png" id="2_phrgv"]
+[ext_resource type="Texture2D" uid="uid://dnhba5hgr6jcs" path="res://artAssets/character_map_assets/redEnemySprites/lancer/Lancer_Idle.png" id="3_35rvp"]
+[ext_resource type="Texture2D" uid="uid://dn202brenwqii" path="res://artAssets/character_map_assets/redEnemySprites/lancer/Lancer_Run.png" id="4_tco54"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tq11u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wefen"]
+atlas = ExtResource("2_phrgv")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erw8b"]
+atlas = ExtResource("2_phrgv")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdi0y"]
+atlas = ExtResource("2_phrgv")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3gtw"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1kye"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au4dv"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35ss6"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u34mx"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2sa6"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rsc6"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(1920, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqf0g"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(2240, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mltuw"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(2560, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlnet"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(2880, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_devxq"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(3200, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e373j"]
+atlas = ExtResource("3_35rvp")
+region = Rect2(3520, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shime"]
+atlas = ExtResource("4_tco54")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wt42u"]
+atlas = ExtResource("4_tco54")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjjiv"]
+atlas = ExtResource("4_tco54")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w55s6"]
+atlas = ExtResource("4_tco54")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wovo3"]
+atlas = ExtResource("4_tco54")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6x5xb"]
+atlas = ExtResource("4_tco54")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0psgh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wefen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erw8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdi0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdi0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wefen")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3gtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1kye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_au4dv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35ss6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u34mx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2sa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rsc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqf0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mltuw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlnet")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_devxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e373j")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shime")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wt42u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjjiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w55s6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wovo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6x5xb")
+}],
+"loop": false,
+"name": &"run",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5tvvb"]
+radius = 177.22867
+
+[node name="enemyLancer" type="Node2D"]
+
+[node name="enemy_lancer" type="CharacterBody2D" parent="."]
+script = ExtResource("1_5tvvb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_lancer"]
+shape = SubResource("CapsuleShape2D_tq11u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy_lancer"]
+sprite_frames = SubResource("SpriteFrames_0psgh")
+animation = &"run"
+
+[node name="enemy_detection" type="Area2D" parent="enemy_lancer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_lancer/enemy_detection"]
+shape = SubResource("CircleShape2D_5tvvb")
+
+[node name="attack_cooldown" type="Timer" parent="enemy_lancer"]
+
+[node name="health_hud" type="Control" parent="enemy_lancer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="damage_label" type="Label" parent="enemy_lancer/health_hud"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="body_entered" from="enemy_lancer/enemy_detection" to="enemy_lancer" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="enemy_lancer/enemy_detection" to="enemy_lancer" method="_on_enemy_detection_body_exited"]

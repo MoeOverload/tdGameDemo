@@ -20,7 +20,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	$PanelContainer/HBoxContainer/res_counter.text = str(res_count_value)
-
+	$coinCounter/HBoxContainer/coin_counter.text = str(GameManager.coins)
 
 func _on_lancer_spawn_button_pressed() -> void:
 	if !can_spawn:

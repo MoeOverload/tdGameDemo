@@ -181,9 +181,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5tvvb"]
 radius = 177.22867
 
-[node name="enemyLancer" type="Node2D"]
+[node name="enemyLancer" type="Node2D" groups=["enemy_unit"]]
 
-[node name="enemy_lancer" type="CharacterBody2D" parent="."]
+[node name="enemy_lancer" type="CharacterBody2D" parent="." groups=["enemy_unit"]]
+z_index = 4
+scale = Vector2(0.6, 0.6)
+collision_layer = 2
 script = ExtResource("1_5tvvb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_lancer"]

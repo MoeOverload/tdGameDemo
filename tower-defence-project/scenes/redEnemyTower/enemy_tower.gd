@@ -20,7 +20,7 @@ enum state{
 	ROUND04,
 	FINALROUND,
 }
-@onready var current_state = state.ROUND01
+@onready var current_state = state.ROUND03
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -83,8 +83,28 @@ func handle_ROUND2():
 	spawnTimer.start()
 
 func handle_ROUND3():
-	pass
+	if !round_active:
+		return
+	if !can_spawn:
+		return
+	if numSpawned >=12:
+		round_active = false
+		
+		current_state = state.ROUND04
+		roundCooldown.start()
+		return
+	if numSpawned <=4:
+		spawn_unit(pawnUnit)
+	elif numSpawned >=5 and numSpawned <=7:
+		spawn_unit(archerUnit)
+	elif numSpawned >=9 and numSpawned <=11:
+		spawn_unit(lancerUnit)
+	elif numSpawned >= 11 and numSpawned <=12:
+		spawn_unit(pawnUnit)
 	
+	numSpawned +=1
+	can_spawn = false
+	spawnTimer.start()
 func handle_ROUND4():
 	pass
 	

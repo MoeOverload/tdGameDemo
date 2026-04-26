@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ctspr6aafm7n0"]
+[gd_scene load_steps=29 format=3 uid="uid://ctspr6aafm7n0"]
 
 [ext_resource type="Texture2D" uid="uid://dy2t6bnfhhgq0" path="res://artAssets/character_map_assets/playerMageUnit/Heal.png" id="1_qgg3t"]
 [ext_resource type="Script" uid="uid://8xuwgf1jiscm" path="res://scenes/PlayerUnits/mageUnit/mage_unit.gd" id="1_rc643"]
@@ -174,11 +174,17 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="mageUnit" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rc643"]
+radius = 100.0
+height = 486.66666
 
-[node name="mageUnit" type="CharacterBody2D" parent="."]
+[node name="mageUnit" type="Node2D" groups=["player_unit"]]
+z_index = 4
+
+[node name="mageUnit" type="CharacterBody2D" parent="." groups=["player_unit"]]
 z_index = 4
 scale = Vector2(0.6, 0.6)
+collision_mask = 3
 script = ExtResource("1_rc643")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mageUnit"]
@@ -188,3 +194,25 @@ shape = SubResource("CapsuleShape2D_4jjod")
 sprite_frames = SubResource("SpriteFrames_qwevl")
 animation = &"heal"
 frame_progress = 0.906319
+
+[node name="enemy_detection" type="Area2D" parent="mageUnit"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mageUnit/enemy_detection"]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_rc643")
+
+[node name="attack_cooldown" type="Timer" parent="mageUnit"]
+
+[node name="player_unit_HUD" type="Control" parent="mageUnit"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="health_label" type="Label" parent="mageUnit/player_unit_HUD"]
+visible = false
+modulate = Color(1, 0.015686275, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

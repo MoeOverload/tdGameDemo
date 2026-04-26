@@ -51,7 +51,7 @@ func _physics_process(delta: float)-> void:
 		state.DEATH:
 			handle_death(delta)
 	move_and_slide()
-	print(current_state)
+	
 
 
 func clean_unit_list():

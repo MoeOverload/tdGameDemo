@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 #TODO
 #MAKE ATTACK STATE HEAL PLAYERS AND DAMAGE ENEMYS
-#ADJUST THE ATTACK RANGE TO INCLUDE MULTIPLE UNITS
-#ADJUST UNIT HEALTH AND DAMAGE VARS 
+#CREATE A HEAL FUNCTION FOR ALL CHARACTERS
+ 
 
 
 
@@ -11,10 +11,12 @@ extends CharacterBody2D
 #variables
 var health = 6
 var damage
+var power
 var players_in_range = []
 var enemies_in_range = []
 var move_speed = 30
-var attack_power = 2
+var heal_power = 3
+var attack_power = 4
 var attack_range = 55
 var attack_rBuffer = 10
 var direction = 1.0
@@ -117,8 +119,10 @@ func handle_attack(delta):
 			#else change state
 			current_state = state.CHASE
 			return
-	#check distance from enemies
-	enemy_unit = get_closest_enemy()
+	if player_unit == null or !is_instance_valid(player_unit):
+		if players_in_range.size() > 0:
+			player_unit = get_valid_player()
+			return
 	var distance = global_position.distance_to(enemy_unit.global_position)
 	#change state if distance is greater than varaible + buffer
 	if distance > attack_range + attack_rBuffer:
@@ -132,6 +136,7 @@ func handle_attack(delta):
 		anim.play("attack")
 		atck_cooldown.start()
 		enemy_unit.take_damage(attack_power)
+		player_unit.magic_heal(heal_power)
 		can_attack = false
 		
 		
@@ -176,6 +181,9 @@ func take_damage(amount:int):
 	health -= amount
 	current_state = state.HURT
 
+func magic_heal(amount:int):
+	power = amount
+	health += amount
 
 
 #hurt state logic
@@ -214,7 +222,7 @@ func handle_death(delta):
 	self.queue_free()
 	
 
-
+#I DONT THINK I NEED THIS 
 #enemy distance checker
 func get_closest_enemy():
 	var closest = null

@@ -2,6 +2,7 @@ extends CharacterBody2D
 #variables
 var health = 6
 var damage
+var power
 var enemies_in_range = []
 var move_speed = 30
 var attack_power = 2
@@ -146,6 +147,12 @@ func take_damage(amount:int):
 	damage = amount
 	health -= amount
 	current_state = state.HURT
+
+func magic_heal(amount:int):
+	power = amount
+	health += amount
+
+
 #hurt state logic
 func handle_hurt(delta):
 	health_hud.text = str("-",damage)

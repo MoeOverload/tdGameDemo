@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
 #TODO
-#MAKE ATTACK STATE HEAL PLAYERS AND DAMAGE ENEMYS
-#CREATE A HEAL FUNCTION FOR ALL CHARACTERS
+# ADD HEAL STATE TO PLAYERS AND  ENEMYS
+# ADD HEAL FUNCTION FOR ALL CHARACTERS
+# COPY MAGE BUILD FOR ENEMY MAGE
+#FINISH CHARACTERS AND WORK ON GAME LOOP 
  
 
 
@@ -17,7 +19,7 @@ var enemies_in_range = []
 var move_speed = 30
 var heal_power = 3
 var attack_power = 4
-var attack_range = 55
+var attack_range = 100
 var attack_rBuffer = 10
 var direction = 1.0
 var can_attack = true
@@ -39,6 +41,7 @@ enum state{
 	CHASE,
 	ATTACK,
 	HURT,
+	HEALED,
 	DEATH,
 }
 
@@ -50,7 +53,7 @@ func _ready() -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float)-> void:
-	print(players_in_range)
+	print(current_state)
 	clean_enemy_list()
 	#match the states/ statemachine
 	match current_state:
@@ -64,6 +67,8 @@ func _physics_process(delta: float)-> void:
 			handle_attack(delta)
 		state.HURT:
 			handle_hurt(delta)
+		state.HEALED:
+			handle_heal(delta)
 		state.DEATH:
 			handle_death(delta)
 		
@@ -122,7 +127,7 @@ func handle_attack(delta):
 	if player_unit == null or !is_instance_valid(player_unit):
 		if players_in_range.size() > 0:
 			player_unit = get_valid_player()
-			return
+			
 	var distance = global_position.distance_to(enemy_unit.global_position)
 	#change state if distance is greater than varaible + buffer
 	if distance > attack_range + attack_rBuffer:
@@ -133,7 +138,7 @@ func handle_attack(delta):
 	#check if the attack cooldown is done
 	if can_attack:
 		#play animation start cooldown and send signal to the targeted enemy, reset cooldown var
-		anim.play("attack")
+		anim.play("heal")
 		atck_cooldown.start()
 		enemy_unit.take_damage(attack_power)
 		player_unit.magic_heal(heal_power)
@@ -184,10 +189,26 @@ func take_damage(amount:int):
 func magic_heal(amount:int):
 	power = amount
 	health += amount
+	current_state = state.HEALED
 
+#healed state logic 
+func handle_heal(delta):
+	health_hud.modulate = Color8(0,255,15)
+	health_hud.text = str("+",power)
+	health_hud.visible = true
+	damage_label_timer += delta
+	if damage_label_timer >= damage_label_time:
+		health_hud.visible = false
+		damage_label_timer = 0.0
+		if enemy_unit:
+			
+			current_state = state.CHASE
+		else:
+			current_state = state.RUN
 
 #hurt state logic
 func handle_hurt(delta):
+	health_hud.modulate = Color8(255,0,0)
 	health_hud.text = str("-",damage)
 	health_hud.visible = true
 	damage_label_timer += delta
@@ -257,6 +278,7 @@ func _on_enemy_detection_body_entered(body: Node2D) -> void:
 		players_in_range.append(body)
 		if player_unit == null:
 			player_unit = body
+			return
 
 
 #enemy detection logic

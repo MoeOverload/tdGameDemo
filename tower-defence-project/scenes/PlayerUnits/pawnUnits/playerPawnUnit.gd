@@ -27,6 +27,7 @@ enum state{
 	CHASE,
 	ATTACK,
 	HURT,
+	HEALED,
 	DEATH,
 }
 
@@ -51,6 +52,8 @@ func _physics_process(delta: float)-> void:
 			handle_attack(delta)
 		state.HURT:
 			handle_hurt(delta)
+		state.HEALED:
+			handle_heal(delta)
 		state.DEATH:
 			handle_death(delta)
 		
@@ -151,10 +154,25 @@ func take_damage(amount:int):
 func magic_heal(amount:int):
 	power = amount
 	health += amount
+	current_state = state.HEALED
 
-
+#healed state logic 
+func handle_heal(delta):
+	health_hud.modulate = Color8(0,255,15)
+	health_hud.text = str("+",power)
+	health_hud.visible = true
+	damage_label_timer += delta
+	if damage_label_timer >= damage_label_time:
+		health_hud.visible = false
+		damage_label_timer = 0.0
+		if enemy_unit:
+			
+			current_state = state.CHASE
+		else:
+			current_state = state.RUN
 #hurt state logic
 func handle_hurt(delta):
+	health_hud.modulate = Color8(255,0,0)
 	health_hud.text = str("-",damage)
 	health_hud.visible = true
 	damage_label_timer += delta

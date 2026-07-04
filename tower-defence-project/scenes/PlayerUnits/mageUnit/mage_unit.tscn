@@ -175,8 +175,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rc643"]
-radius = 100.0
-height = 486.66666
+radius = 110.0
+height = 663.3333
 
 [node name="mageUnit" type="Node2D" groups=["player_unit"]]
 z_index = 4
@@ -212,7 +212,10 @@ offset_bottom = 40.0
 
 [node name="health_label" type="Label" parent="mageUnit/player_unit_HUD"]
 visible = false
-modulate = Color(1, 0.015686275, 0, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="body_entered" from="mageUnit/enemy_detection" to="mageUnit" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="mageUnit/enemy_detection" to="mageUnit" method="_on_enemy_detection_body_exited"]
+[connection signal="timeout" from="mageUnit/attack_cooldown" to="mageUnit" method="_on_attack_cooldown_timeout"]

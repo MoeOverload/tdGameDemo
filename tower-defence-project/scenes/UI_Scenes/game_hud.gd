@@ -11,6 +11,7 @@ var lancer_spawn_val = 6
 var archer_spawn_val = 4
 var pawn_spawn_value = 2
 var can_spawn = true
+@onready var pauseMenu = $PauseMenuControl
 @onready var spawnCapTimer = $spawnCapTimer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -78,3 +79,16 @@ func _on_res_count_timer_timeout() -> void:
 func _on_spawn_cap_timer_timeout() -> void:
 	can_spawn = true
 	
+
+#### PAUSE MENU ####
+
+func _on_pause_button_button_up() -> void:
+	get_tree().paused = true
+	pauseMenu.visible = true
+
+
+
+
+func _on_resume_button_button_up() -> void:
+	get_tree().paused = false
+	pauseMenu.visible = false
